@@ -1,0 +1,22 @@
+.create-expense{
+    padding: 2rem;
+    text-align: center;
+    width:40%;
+    margin:auto;
+background-color: #ccc;
+}
+  
+.create-expense .form-control{
+    width:90%;
+    margin-bottom: 1rem;
+    padding: 10px 12px;
+}
+
+  
+.create-expense button{
+    padding:10px 12px;
+    border-color:transparent;
+    background-color: black;
+    color:#fff;
+
+}

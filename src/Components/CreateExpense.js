@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-
-const CreateExpense = () => {
+import "./CreateExpense.css"
+const CreateExpense = ({ onAdd }) => {
 
     const [expense_data, setExpenseData] = useState({
         expense_description: "",
@@ -29,10 +29,15 @@ const CreateExpense = () => {
         })
     }
 
+
+    const submitHandler = (e) => {
+        e.preventDefault()
+        onAdd(expense_data)
+    }
     console.log(expense_data);
 
     return (
-        <form className="create-expense">
+        <form onSubmit={submitHandler} className="create-expense">
             <div className='form-group'>
                 <input onChange={handleDescChange} className="form-control" type="text" name="expense-desc" placeholder='Enter Expense' />
             </div>

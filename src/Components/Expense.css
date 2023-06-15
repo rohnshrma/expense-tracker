@@ -1,0 +1,19 @@
+.expense{
+    background-color: #ccc;
+    padding: 1rem;
+    margin: 0 auto  1rem;
+    display: flex;
+    border-radius: 10px;
+    justify-content: space-between;
+    align-items: center;
+    list-style-type: none;
+    width:90%;
+}
+
+
+.expense button{
+    border-color: transparent;
+    color:#fff;
+    padding:10px 12px;
+    background-color: #000;
+}
