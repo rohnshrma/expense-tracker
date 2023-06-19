@@ -1,31 +1,54 @@
-import React,{useState} from 'react'
+import React, { useState, useEffect } from 'react'
 import CreateExpense from './Components/CreateExpense'
 import Expense from './Components/Expense'
 
 const App = () => {
-  const [allExpense , setAllExpenses]  = useState([])
+  const [allExpense, setAllExpenses] = useState([])
+
+  useEffect(() => {
+    console.log("sending data using useEffect");
+
+    const sendData = async () => {
+      const response = await fetch("https://react-http-m14-default-rtdb.firebaseio.com/expenses.json", {
+        method: "PUT",
+        body: JSON.stringify(allExpense)
+      })
+
+      console.log(response.ok);
+
+      const data = await response.json()
+      console.log("received from fetch",data);
+
+    }
+
+    sendData()
+
+  }, [allExpense])
+
+  // 
 
 
-  const addExpenseHandler = (expense_data)=>{
-    setAllExpenses((prevValues)=>{
-      return [expense_data , ...prevValues]
+
+  const addExpenseHandler = (expense_data) => {
+    setAllExpenses((prevValues) => {
+      return [expense_data, ...prevValues]
     })
   }
 
 
-  const expense_html = allExpense.map((expense,index)=>{
-    return <Expense key={index} id={index} description={expense.expense_description} amount={expense.expense_amount}/>
+  const expense_html = allExpense.map((expense, index) => {
+    return <Expense key={index} id={index} description={expense.expense_description} amount={expense.expense_amount} />
   })
 
   return (
     <div className='App'>
-        <CreateExpense onAdd={addExpenseHandler}/>
-        <main>
-          <ul>
-            {allExpense.length === 0 && <li className='expense'>No Expense Found</li>}
-            {allExpense.length !== 0 && expense_html}
-          </ul>
-        </main>
+      <CreateExpense onAdd={addExpenseHandler} />
+      <main>
+        <ul>
+          {allExpense.length === 0 && <li className='expense'>No Expense Found</li>}
+          {allExpense.length !== 0 && expense_html}
+        </ul>
+      </main>
     </div>
   )
 }
