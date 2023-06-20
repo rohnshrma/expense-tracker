@@ -45,7 +45,7 @@ const App = () => {
     }
     fetchExpenses()
 
-  },[])
+  }, [])
 
 
 
@@ -55,9 +55,21 @@ const App = () => {
     })
   }
 
+  const deleteHandler = (id) => {
+
+    console.log("deleting expense");
+
+    setAllExpenses((prevValues) => {
+      return prevValues.filter((expense,index) => {
+        return index !== id
+      })
+    })
+  }
 
   const expense_html = allExpense.map((expense, index) => {
-    return <Expense key={index} id={index} description={expense.expense_description} amount={expense.expense_amount} />
+    return <Expense onDelete={
+      deleteHandler
+    } key={index} id={index} description={expense.expense_description} amount={expense.expense_amount} />
   })
 
   return (
