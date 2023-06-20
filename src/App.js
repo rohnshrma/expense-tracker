@@ -5,6 +5,7 @@ import Expense from './Components/Expense'
 const App = () => {
   const [allExpense, setAllExpenses] = useState([])
 
+  // sending latest state to the db
   useEffect(() => {
     console.log("sending data using useEffect");
 
@@ -17,7 +18,7 @@ const App = () => {
       console.log(response.ok);
 
       const data = await response.json()
-      console.log("received from fetch",data);
+      console.log("Data Sent To DB", data);
 
     }
 
@@ -25,7 +26,26 @@ const App = () => {
 
   }, [allExpense])
 
-  // 
+  // fetching data from db
+  useEffect(() => {
+
+    console.log("fetching data from db");
+
+    const fetchExpenses = async () => {
+      try {
+        const response = await fetch("https://react-http-m14-default-rtdb.firebaseio.com/expenses.json")
+        const data = await response.json()
+        if (data) {
+          setAllExpenses(data)
+        }
+      }
+      catch (error) {
+        console.log(error);
+      }
+    }
+    fetchExpenses()
+
+  },[])
 
 
 
